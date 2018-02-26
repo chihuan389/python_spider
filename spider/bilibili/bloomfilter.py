@@ -25,7 +25,7 @@ class BloomFilter(object):
         :param key: the key's name in Redis
         """
         self.server = redis.Redis(host=host, port=port, db=db, decode_responses = True)
-        self.bit_size = 1 << 20 # Redis的String类型最大容量为512M，现使用256M
+        self.bit_size = 1 << 20 # Redis的String类型最大容量为512M
         self.seeds = [5, 7, 11, 13, 31, 37, 61]
         self.key = key
         self.blockNum = blockNum
@@ -73,11 +73,9 @@ class BloomFilter(object):
 
 
 if __name__ == '__main__':
-# """ 第一次运行时会显示 not exists!，之后再运行会显示 exists! """
     bf = BloomFilter()
-    if bf.isContains('http://www.bilibili.com'):   # 判断字符串是否存在
+    if bf.isContains('http://www.bilibili.com'):   
         print ('exists!')
     else:
         print ('not exists!')
         bf.insert('http://www.bilibili.com')
-#     print('http://www.baidu.com'.encode('utf-8'))
