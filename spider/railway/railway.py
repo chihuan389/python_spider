@@ -225,28 +225,29 @@ class Railway():
 
 
 def main():
-    try:
-        railway = Railway(USERNAME, PASSWORD, DATE, FROM_LOCATION, TO_LOCATION, L_TIME, U_TIME)
-        list_ticket = railway.queryticket()
-        if list_ticket:
-            secretstr = list_ticket[0]
-            leftticketstr = list_ticket[1]
-            train_location = list_ticket[2]
-            railway.verification()
-            tk = railway.uamtk()
-            railway.uama(tk)
-            railway.query()
-            railway.submitOrderRequest(secretstr)
-            list_indc = railway.indc()
-            repeatsubmittoken = list_indc[0]
-            key_check_isChange = list_indc[1]
-            railway.getPassengerDTOs(repeatsubmittoken)
-            railway.check(repeatsubmittoken)
-            railway.confirm(repeatsubmittoken, leftticketstr, train_location, key_check_isChange)
-    except Exception:
-        print('error')
-
-if __name__ == '__main__':
     while True:
-        main()
+        try:
+            railway = Railway(USERNAME, PASSWORD, DATE, FROM_LOCATION, TO_LOCATION, L_TIME, U_TIME)
+            list_ticket = railway.queryticket()
+            if list_ticket:
+                secretstr = list_ticket[0]
+                leftticketstr = list_ticket[1]
+                train_location = list_ticket[2]
+                railway.verification()
+                tk = railway.uamtk()
+                railway.uama(tk)
+                railway.query()
+                railway.submitOrderRequest(secretstr)
+                list_indc = railway.indc()
+                repeatsubmittoken = list_indc[0]
+                key_check_isChange = list_indc[1]
+                railway.getPassengerDTOs(repeatsubmittoken)
+                railway.check(repeatsubmittoken)
+                if railway.confirm(repeatsubmittoken, leftticketstr, train_location, key_check_isChange):
+                    break
+        except Exception:
+            print('error')
         time.sleep(5)
+if __name__ == '__main__':
+    main()
+        
